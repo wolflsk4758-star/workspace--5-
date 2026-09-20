@@ -1,97 +1,85 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="ar" dir="rtl">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>coder-app-name</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
+    
+    <!-- Primary Meta Tags -->
+    <title>مجموعة التميمي | Al-Tamimi Group - خبراء صيانة اللوحات الإلكترونية والأجهزة المنزلية</title>
+    <meta name="title" content="مجموعة التميمي | Al-Tamimi Group - خبراء صيانة اللوحات الإلكترونية والأجهزة المنزلية" />
+    <meta name="description" content="مجموعة التميمي - خبراء في صيانة اللوحات الإلكترونية والأجهزة المنزلية. خدمة تصليح منزلية سريعة مع فنيين خبراء وقطع غيار أصلية وضمان على الصيانة." />
+    <meta name="keywords" content="صيانة لوحات إلكترونية, صيانة أجهزة منزلية, تصليح مكيفات, صيانة غسالات, صيانة ثلاجات, صيانة جلايات, مجموعة التميمي, Al-Tamimi Group, electronic boards repair, home appliances maintenance, Jordan" />
+    <meta name="author" content="مجموعة التميمي - Al-Tamimi Group" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="Arabic, English" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://altamimigroup.com/" />
+    <meta property="og:title" content="مجموعة التميمي | Al-Tamimi Group - خبراء صيانة اللوحات الإلكترونية والأجهزة المنزلية" />
+    <meta property="og:description" content="خبراء في صيانة اللوحات الإلكترونية والأجهزة المنزلية. خدمة تصليح منزلية سريعة مع ضمان." />
+    <meta property="og:image" content="https://altamimigroup.com/og-image.jpg" />
+    <meta property="og:locale" content="ar_JO" />
+    <meta property="og:locale:alternate" content="en_US" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://altamimigroup.com/" />
+    <meta property="twitter:title" content="مجموعة التميمي | Al-Tamimi Group" />
+    <meta property="twitter:description" content="خبراء في صيانة اللوحات الإلكترونية والأجهزة المنزلية" />
+    <meta property="twitter:image" content="https://altamimigroup.com/og-image.jpg" />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700;800;900&family=Cinzel:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    
+
+    
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "مجموعة التميمي - Al-Tamimi Group",
+      "description": "خبراء في صيانة اللوحات الإلكترونية والأجهزة المنزلية - خدمة تصليح منزلية",
+      "image": "https://altamimigroup.com/logo.png",
+      "telephone": "+962790555876",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "JO"
+      },
+      "url": "https://altamimigroup.com",
+      "sameAs": [
+        "https://www.facebook.com/AltamimiGroup1/"
+      ],
+      "priceRange": "$$",
+      "openingHours": "Sa-Th 08:00-20:00",
+      "serviceType": [
+        "Electronic Boards Maintenance",
+        "Air Conditioners Maintenance",
+        "Washing Machines Maintenance",
+        "Refrigerators Maintenance",
+        "Dishwashers Maintenance"
+      ],
+      "areaServed": {
+        "@type": "Country",
+        "name": "Jordan"
+      }
+    }
+    </script>
+    
     <style>
-      /* 内联样式确保主题色立即生效，避免闪烁 */
-      html,
-      body {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        height: 100%;
-      }
-      html.light,
-      html.light body {
-        background-color: #ffffff !important;
-        color: #000000;
-      }
-      html.dark,
-      html.dark body {
-        background-color: #1a1a1a !important;
-        color: #ffffff;
-      }
+      html, body { margin: 0; padding: 0; width: 100%; min-height: 100%; }
+      html { background-color: #0a0a0a !important; }
+      body { background-color: #0a0a0a !important; color: #ffffff; }
     </style>
-    <script>
-      // 在 React 加载前立即设置主题，避免闪烁
-      (function () {
-        const isInIframe = window.self !== window.top;
-
-        function applyThemeToDOM(theme) {
-          document.documentElement.classList.remove("light", "dark");
-          document.documentElement.classList.add(theme);
-          document.documentElement.setAttribute("data-theme", theme);
-        }
-
-        if (isInIframe) {
-          // 监听父窗口主动推送的主题消息
-          window.addEventListener("message", function (event) {
-            if (event.data && typeof event.data.theme === "string") {
-              const theme = event.data.theme;
-              if (theme === "light" || theme === "dark") {
-                applyThemeToDOM(theme);
-              }
-            }
-          });
-        } else {
-          // 非 iframe 环境，使用默认 light 主题
-          applyThemeToDOM("light");
-        }
-      })();
-    </script>
-      <script>
-      (function () {
-        if (window.self === window.top) return;
-        var reported = {};
-        window.addEventListener("error", function (event) {
-          // 资源加载失败的 error 事件没有 message，此处仅上报 JS 运行时错误
-          if (!event || !event.message) return;
-          var key =
-            event.message + "|" + (event.filename || "") + "|" + (event.lineno || 0);
-          if (reported[key]) return; // 相同错误只上报一次，避免渲染循环刷屏
-          reported[key] = true;
-          try {
-            window.parent.postMessage(
-              {
-                type: "sandbox-runtime-error",
-                payload: {
-                  message: String(event.message).slice(0, 500),
-                  filename: event.filename || "",
-                  lineno: event.lineno || 0,
-                  colno: event.colno || 0,
-                  stack:
-                    event.error && event.error.stack
-                      ? String(event.error.stack).slice(0, 2000)
-                      : ""
-                }
-              },
-              "*"
-            );
-          } catch (e) {
-            /* 上报失败不影响页面运行 */
-          }
-        });
-      })();
-    </script>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
