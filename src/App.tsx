@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback, createContext, useContext } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import logo from './assets/{D8F3214C-C6C4-4197-B704-6F20E78DCA08}.png';
 
 // ===== LANGUAGE CONTEXT =====
 type Lang = 'ar' | 'en';
@@ -182,9 +183,7 @@ function Navbar() {
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <a href="#home" className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center">
-              <span className="text-dark-900 font-bold text-lg">ت</span>
-            </div>
+            <img src={logo} alt="Al-Tamimi Logo" className="w-12 h-12 object-contain" />
             <span className="gold-text font-bold text-xl hidden sm:block" style={{ fontFamily: lang === 'ar' ? "'Cairo', sans-serif" : "'Cinzel', serif" }}>
               {lang === 'ar' ? 'مجموعة التميمي' : 'Al-Tamimi'}
             </span>
@@ -641,10 +640,9 @@ function ComparisonSlider({ beforeImg, afterImg, beforeLabel, afterLabel }: { be
     </div>
   );
 }
-
 // ===== BEFORE & AFTER CAROUSEL =====
 function BeforeAfterSection() {
-  const { t, lang } = useLang();
+  const { lang } = useLang();
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % beforeAfterImages.length);
@@ -664,139 +662,85 @@ function BeforeAfterSection() {
             {lang === 'ar' ? translations.beforeAfter.title.ar : translations.beforeAfter.title.en}
           </h2>
           <div className="section-divider mt-4"></div>
-          <p className="text-gray-400 mt-6 text-lg">
+          <p className="text-gray-400 mt-4 max-w-2xl mx-auto">
             {lang === 'ar' ? translations.beforeAfter.desc.ar : translations.beforeAfter.desc.en}
           </p>
         </motion.div>
 
-        {/* Slide Title */}
-        <div className="text-center mb-6">
-          <h3 className="text-xl font-bold text-gold-400">
-            {lang === 'ar'
-              ? translations.beforeAfter.slides[currentSlide].title.ar
-              : translations.beforeAfter.slides[currentSlide].title.en}
-          </h3>
-        </div>
-
-        {/* Carousel */}
         <div className="relative">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentSlide}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.4 }}
-            >
-              <ComparisonSlider
-                beforeImg={beforeAfterImages[currentSlide].before}
-                afterImg={beforeAfterImages[currentSlide].after}
-                beforeLabel={lang === 'ar' ? translations.beforeAfter.before.ar : translations.beforeAfter.before.en}
-                afterLabel={lang === 'ar' ? translations.beforeAfter.after.ar : translations.beforeAfter.after.en}
-              />
-            </motion.div>
-          </AnimatePresence>
+          <div className="overflow-hidden rounded-2xl relative">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentSlide}
+                initial={{ opacity: 0, x: 100 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -100 }}
+                transition={{ duration: 0.5 }}
+              >
+                <ComparisonSlider
+                  beforeImg={beforeAfterImages[currentSlide].before}
+                  afterImg={beforeAfterImages[currentSlide].after}
+                  beforeLabel={lang === 'ar' ? translations.beforeAfter.before.ar : translations.beforeAfter.before.en}
+                  afterLabel={lang === 'ar' ? translations.beforeAfter.after.ar : translations.beforeAfter.after.en}
+                />
+                <div className="text-center mt-6">
+                  <h3 className="text-xl font-bold text-white">
+                    {lang === 'ar' ? translations.beforeAfter.slides[currentSlide].title.ar : translations.beforeAfter.slides[currentSlide].title.en}
+                  </h3>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
 
-          {/* Navigation Arrows */}
-          <button
-            onClick={prevSlide}
-            className="absolute top-1/2 -translate-y-1/2 left-2 sm:-left-5 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-dark-700/80 border border-gold-400/30 flex items-center justify-center text-gold-400 hover:bg-gold-400/20 transition-all z-20"
-          >
-            <i className="fas fa-chevron-left"></i>
+          {/* Slider Controls */}
+          <button onClick={prevSlide} className="absolute top-1/2 -left-4 sm:-left-12 -translate-y-1/2 w-10 h-10 rounded-full bg-dark-700 border border-gold-400/20 text-gold-400 hover:bg-gold-400/20 flex items-center justify-center transition-all z-10">
+            <i className={`fas ${lang === 'ar' ? 'fa-chevron-right' : 'fa-chevron-left'}`}></i>
           </button>
-          <button
-            onClick={nextSlide}
-            className="absolute top-1/2 -translate-y-1/2 right-2 sm:-right-5 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-dark-700/80 border border-gold-400/30 flex items-center justify-center text-gold-400 hover:bg-gold-400/20 transition-all z-20"
-          >
-            <i className="fas fa-chevron-right"></i>
+          <button onClick={nextSlide} className="absolute top-1/2 -right-4 sm:-right-12 -translate-y-1/2 w-10 h-10 rounded-full bg-dark-700 border border-gold-400/20 text-gold-400 hover:bg-gold-400/20 flex items-center justify-center transition-all z-10">
+            <i className={`fas ${lang === 'ar' ? 'fa-chevron-left' : 'fa-chevron-right'}`}></i>
           </button>
-        </div>
-
-        {/* Dots */}
-        <div className="flex justify-center gap-3 mt-8">
-          {beforeAfterImages.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentSlide(index)}
-              className={`h-3 rounded-full ba-dot ${index === currentSlide ? 'active' : 'bg-dark-400 w-3'}`}
-            />
-          ))}
         </div>
       </div>
     </section>
   );
 }
 
-// ===== OUR WORK GALLERY (MARQUEE) =====
+// ===== GALLERY SECTION =====
 function GallerySection() {
   const { lang } = useLang();
-  // Duplicate images for seamless infinite loop
-  const allImages = [...galleryImages, ...galleryImages];
-
+  
   return (
-    <section id="gallery" className="py-24 px-4 bg-dark-900 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-dark-800/30 to-dark-900 pointer-events-none"></div>
-
-      <div className="max-w-7xl mx-auto relative mb-12">
+    <section id="gallery" className="py-24 px-4 bg-dark-900 relative">
+      <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center"
+          className="text-center mb-16"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold gold-text mb-4" style={{ fontFamily: "'Cinzel', 'Cairo', serif" }}>
             {lang === 'ar' ? translations.gallery.title.ar : translations.gallery.title.en}
           </h2>
+          <p className="text-gray-400 mt-4">{lang === 'ar' ? translations.gallery.desc.ar : translations.gallery.desc.en}</p>
           <div className="section-divider mt-4"></div>
-          <p className="text-gray-400 mt-6 text-lg">
-            {lang === 'ar' ? translations.gallery.desc.ar : translations.gallery.desc.en}
-          </p>
         </motion.div>
-      </div>
 
-      {/* Marquee */}
-      <div className="marquee-container">
-        <div className="marquee-track">
-          {allImages.map((img, index) => (
-            <div
-              key={index}
-              className="flex-shrink-0 w-72 h-48 sm:w-80 sm:h-56 mx-3 rounded-2xl overflow-hidden border border-gold-400/10 hover:border-gold-400/40 transition-all duration-300 group relative"
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          {galleryImages.map((img, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              className="relative group overflow-hidden rounded-xl aspect-square"
             >
-              <img
-                src={img}
-                alt={`Project ${index + 1}`}
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-dark-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                <span className="text-gold-400 text-sm font-bold">
-                  {lang === 'ar' ? 'مشروع' : 'Project'} #{(index % galleryImages.length) + 1}
-                </span>
+              <img src={img} alt={`Gallery ${idx + 1}`} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+              <div className="absolute inset-0 bg-dark-900/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <i className="fas fa-search-plus text-gold-400 text-3xl"></i>
               </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Second row - reverse direction */}
-      <div className="marquee-container mt-6">
-        <div className="marquee-track" style={{ animationDirection: 'reverse', animationDuration: '35s' }}>
-          {[...galleryImages].reverse().concat([...galleryImages].reverse()).map((img, index) => (
-            <div
-              key={index}
-              className="flex-shrink-0 w-72 h-48 sm:w-80 sm:h-56 mx-3 rounded-2xl overflow-hidden border border-gold-400/10 hover:border-gold-400/40 transition-all duration-300 group relative"
-            >
-              <img
-                src={img}
-                alt={`Gallery ${index + 1}`}
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-dark-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
-                <span className="text-gold-400 text-sm font-bold">
-                  {lang === 'ar' ? 'عمل' : 'Work'} #{(index % galleryImages.length) + 1}
-                </span>
-              </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -804,24 +748,13 @@ function GallerySection() {
   );
 }
 
-// ===== TESTIMONIALS =====
+// ===== TESTIMONIALS SECTION =====
 function TestimonialsSection() {
   const { lang } = useLang();
-  const [active, setActive] = useState(0);
-  const testimonials = translations.testimonials.items;
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActive((prev) => (prev + 1) % testimonials.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [testimonials.length]);
-
+  
   return (
-    <section id="testimonials" className="py-24 px-4 bg-dark-800 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-dark-900/30 to-dark-800 pointer-events-none"></div>
-
-      <div className="max-w-4xl mx-auto relative">
+    <section id="testimonials" className="py-24 px-4 bg-dark-800 relative">
+      <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -835,48 +768,31 @@ function TestimonialsSection() {
           <div className="section-divider mt-4"></div>
         </motion.div>
 
-        <div className="relative min-h-[280px]">
-          <AnimatePresence mode="wait">
+        <div className="grid md:grid-cols-2 gap-8">
+          {translations.testimonials.items.map((testimonial, idx) => (
             <motion.div
-              key={active}
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              transition={{ duration: 0.5 }}
-              className="bg-dark-700/50 border border-gold-400/10 rounded-2xl p-8 md:p-12 text-center"
+              key={idx}
+              initial={{ opacity: 0, x: idx % 2 === 0 ? -30 : 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: idx * 0.2 }}
+              className="bg-dark-700/30 border border-gold-400/10 p-8 rounded-2xl relative"
             >
-              <div className="text-gold-400 text-4xl mb-6">
-                <i className="fas fa-quote-right"></i>
+              <i className="fas fa-quote-right absolute top-6 right-8 text-4xl text-gold-400/10"></i>
+              <div className="flex text-gold-400 mb-4 text-sm">
+                {[...Array(5)].map((_, i) => <i key={i} className="fas fa-star"></i>)}
               </div>
-              <p className="text-gray-200 text-lg md:text-xl leading-relaxed mb-8">
-                {lang === 'ar' ? testimonials[active].ar : testimonials[active].en}
-              </p>
-              <div>
-                <p className="text-gold-400 font-bold text-lg">
-                  {lang === 'ar' ? testimonials[active].name.ar : testimonials[active].name.en}
-                </p>
-                <p className="text-gray-400 text-sm">
-                  {lang === 'ar' ? testimonials[active].role.ar : testimonials[active].role.en}
-                </p>
-              </div>
-              <div className="flex justify-center gap-1 mt-4">
-                {[...Array(5)].map((_, i) => (
-                  <i key={i} className="fas fa-star text-gold-400 text-sm"></i>
-                ))}
+              <p className="text-gray-300 mb-6 italic leading-relaxed">"{lang === 'ar' ? testimonial.ar : testimonial.en}"</p>
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-dark-600 border border-gold-400/20 flex items-center justify-center">
+                  <i className="fas fa-user text-gold-400"></i>
+                </div>
+                <div>
+                  <h4 className="text-white font-bold">{lang === 'ar' ? testimonial.name.ar : testimonial.name.en}</h4>
+                  <span className="text-gray-500 text-sm">{lang === 'ar' ? testimonial.role.ar : testimonial.role.en}</span>
+                </div>
               </div>
             </motion.div>
-          </AnimatePresence>
-        </div>
-
-        <div className="flex justify-center gap-3 mt-8">
-          {testimonials.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setActive(index)}
-              className={`h-3 rounded-full transition-all duration-300 ${
-                index === active ? 'bg-gold-400 w-8' : 'bg-dark-400 w-3 hover:bg-gold-400/50'
-              }`}
-            />
           ))}
         </div>
       </div>
@@ -885,83 +801,69 @@ function TestimonialsSection() {
 }
 
 // ===== FOOTER =====
-function FooterSection() {
+function Footer() {
   const { lang } = useLang();
-
+  
   return (
-    <footer id="contact" className="py-20 px-4 bg-dark-900 border-t border-gold-400/10">
+    <footer id="contact" className="bg-dark-950 border-t border-gold-400/10 pt-16 pb-8 px-4">
       <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-3xl sm:text-4xl font-bold gold-text mb-4" style={{ fontFamily: "'Cinzel', 'Cairo', serif" }}>
-            {lang === 'ar' ? translations.footer.title.ar : translations.footer.title.en}
-          </h2>
-          <div className="section-divider mt-4"></div>
-        </motion.div>
-
         <div className="grid md:grid-cols-3 gap-12 mb-12">
-          <div className="text-center">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gold-400/10 border border-gold-400/20 flex items-center justify-center">
-              <i className="fas fa-phone text-gold-400 text-xl"></i>
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+              <img src={logo} alt="Al-Tamimi Logo" className="w-12 h-12 object-contain" />
+              <span className="gold-text font-bold text-xl" style={{ fontFamily: lang === 'ar' ? "'Cairo', sans-serif" : "'Cinzel', serif" }}>
+                {lang === 'ar' ? 'مجموعة التميمي' : 'Al-Tamimi'}
+              </span>
             </div>
-            <h3 className="text-white font-bold mb-2">{lang === 'ar' ? translations.footer.phone.ar : translations.footer.phone.en}</h3>
-            <a href="tel:0790555876" className="text-gold-400 text-xl font-bold hover:text-gold-300 transition-colors" dir="ltr">
-              0790555876
-            </a>
+            <p className="text-gray-400 leading-relaxed mb-6">
+              {lang === 'ar' ? translations.hero.subtitle.ar : translations.hero.subtitle.en}
+            </p>
           </div>
 
-          <div className="text-center">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gold-400/10 border border-gold-400/20 flex items-center justify-center">
-              <i className="fas fa-share-nodes text-gold-400 text-xl"></i>
-            </div>
-            <h3 className="text-white font-bold mb-4">{lang === 'ar' ? translations.footer.followUs.ar : translations.footer.followUs.en}</h3>
-            <div className="flex justify-center gap-4">
-              <a href="https://www.facebook.com/AltamimiGroup1/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full bg-dark-600 border border-gold-400/20 flex items-center justify-center text-gold-400 hover:bg-gold-400/20 hover:border-gold-400/50 transition-all duration-300">
-                <i className="fab fa-facebook-f text-lg"></i>
-              </a>
-              <a href="#" className="w-12 h-12 rounded-full bg-dark-600 border border-gold-400/20 flex items-center justify-center text-gold-400 hover:bg-gold-400/20 hover:border-gold-400/50 transition-all duration-300">
-                <i className="fab fa-instagram text-lg"></i>
-              </a>
-              <a href="https://wa.me/962790555876" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full bg-dark-600 border border-gold-400/20 flex items-center justify-center text-gold-400 hover:bg-gold-400/20 hover:border-gold-400/50 transition-all duration-300">
-                <i className="fab fa-whatsapp text-lg"></i>
-              </a>
-            </div>
+          <div>
+            <h3 className="text-xl font-bold text-white mb-6 border-b border-gold-400/20 pb-2 inline-block">
+              {lang === 'ar' ? translations.footer.title.ar : translations.footer.title.en}
+            </h3>
+            <ul className="space-y-4">
+              <li>
+                <a href="tel:+962790555876" className="flex items-center gap-3 text-gray-400 hover:text-gold-400 transition-colors group">
+                  <div className="w-10 h-10 rounded-full bg-dark-800 flex items-center justify-center group-hover:bg-gold-400/10">
+                    <i className="fas fa-phone"></i>
+                  </div>
+                  <span dir="ltr">+962 79 055 5876</span>
+                </a>
+              </li>
+              <li>
+                <div className="flex items-center gap-3 text-gray-400">
+                  <div className="w-10 h-10 rounded-full bg-dark-800 flex items-center justify-center">
+                    <i className="fas fa-location-dot text-gold-400"></i>
+                  </div>
+                  <span>{lang === 'ar' ? 'الأردن - عمان' : 'Amman - Jordan'}</span>
+                </div>
+              </li>
+            </ul>
           </div>
 
-          <div className="text-center">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gold-400/10 border border-gold-400/20 flex items-center justify-center">
-              <i className="fas fa-location-dot text-gold-400 text-xl"></i>
+          <div>
+            <h3 className="text-xl font-bold text-white mb-6 border-b border-gold-400/20 pb-2 inline-block">
+              {lang === 'ar' ? translations.footer.followUs.ar : translations.footer.followUs.en}
+            </h3>
+            <div className="flex gap-4">
+              <a href="#" className="w-12 h-12 rounded-full bg-dark-800 border border-gold-400/20 flex items-center justify-center text-gray-400 hover:text-gold-400 hover:bg-gold-400/10 transition-all hover:-translate-y-1">
+                <i className="fab fa-facebook-f"></i>
+              </a>
+              <a href="#" className="w-12 h-12 rounded-full bg-dark-800 border border-gold-400/20 flex items-center justify-center text-gray-400 hover:text-gold-400 hover:bg-gold-400/10 transition-all hover:-translate-y-1">
+                <i className="fab fa-instagram"></i>
+              </a>
+              <a href="https://wa.me/962790555876" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full bg-dark-800 border border-gold-400/20 flex items-center justify-center text-gray-400 hover:text-green-500 hover:bg-green-500/10 transition-all hover:-translate-y-1">
+                <i className="fab fa-whatsapp"></i>
+              </a>
             </div>
-            <h3 className="text-white font-bold mb-2">{lang === 'ar' ? translations.footer.location.ar : translations.footer.location.en}</h3>
           </div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="rounded-2xl overflow-hidden border border-gold-400/10 mb-12"
-        >
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3324.0!2d35.9!3d31.95!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzHCsDU3JzAwLjAiTiAzNcKwNTQnMDAuMCJF!5e0!3m2!1sar!2sjo!4v1"
-            width="100%"
-            height="300"
-            style={{ border: 0, filter: 'invert(90%) hue-rotate(180deg) brightness(0.8) contrast(1.2)' }}
-            allowFullScreen
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            title="Al-Tamimi Group Location"
-          ></iframe>
-        </motion.div>
-
-        <div className="text-center border-t border-dark-600 pt-8">
-          <p className="text-gray-400 text-sm">
+        <div className="text-center pt-8 border-t border-dark-800">
+          <p className="text-gray-500 text-sm">
             {lang === 'ar' ? translations.footer.rights.ar : translations.footer.rights.en}
           </p>
         </div>
@@ -970,56 +872,29 @@ function FooterSection() {
   );
 }
 
-// ===== FLOATING BUTTONS =====
-function FloatingButtons() {
-  const { lang } = useLang();
-  const positionClass = lang === 'ar' ? 'right-6' : 'left-6';
-
-  return (
-    <div className={`fixed bottom-6 z-50 flex flex-col gap-4 ${positionClass}`}>
-      <a
-        href="https://wa.me/962790555876"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="floating-btn relative w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-lg hover:bg-green-400 transition-colors duration-300"
-        aria-label="WhatsApp"
-      >
-        <i className="fab fa-whatsapp text-white text-2xl"></i>
-      </a>
-      <a
-        href="tel:0790555876"
-        className="floating-btn relative w-14 h-14 bg-gradient-to-br from-gold-400 to-gold-600 rounded-full flex items-center justify-center shadow-lg hover:from-gold-300 hover:to-gold-500 transition-all duration-300"
-        aria-label="Call Us"
-        style={{ animationDelay: '0.5s' }}
-      >
-        <i className="fas fa-phone text-dark-900 text-xl"></i>
-      </a>
-    </div>
-  );
-}
-
-// ===== MAIN APP =====
+// ===== MAIN APP COMPONENT =====
 export default function App() {
   const [lang, setLang] = useState<Lang>('ar');
 
   const toggleLang = () => {
-    setLang((prev) => (prev === 'ar' ? 'en' : 'ar'));
+    setLang(prev => {
+      const newLang = prev === 'ar' ? 'en' : 'ar';
+      document.documentElement.dir = newLang === 'ar' ? 'rtl' : 'ltr';
+      document.documentElement.lang = newLang;
+      return newLang;
+    });
   };
 
-  const t = (ar: string, en: string) => (lang === 'ar' ? ar : en);
+  const t = (ar: string, en: string) => lang === 'ar' ? ar : en;
 
   useEffect(() => {
-    document.documentElement.lang = lang;
     document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.lang = lang;
   }, [lang]);
-
-  useEffect(() => {
-    document.documentElement.style.scrollBehavior = 'smooth';
-  }, []);
 
   return (
     <LangContext.Provider value={{ lang, toggleLang, t }}>
-      <div className="min-h-screen bg-dark-900 text-white overflow-x-hidden">
+      <div className="min-h-screen bg-dark-900 text-gray-100 font-sans" dir={lang === 'ar' ? 'rtl' : 'ltr'}>
         <Navbar />
         <main>
           <HeroSection />
@@ -1030,8 +905,17 @@ export default function App() {
           <GallerySection />
           <TestimonialsSection />
         </main>
-        <FooterSection />
-        <FloatingButtons />
+        <Footer />
+        
+        {/* WhatsApp Float Button */}
+        <a
+          href="https://wa.me/962790555876"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="fixed bottom-6 left-6 z-50 w-14 h-14 bg-green-500 rounded-full flex items-center justify-center text-white text-3xl shadow-[0_0_20px_rgba(34,197,94,0.4)] hover:scale-110 hover:shadow-[0_0_30px_rgba(34,197,94,0.6)] transition-all duration-300"
+        >
+          <i className="fab fa-whatsapp"></i>
+        </a>
       </div>
     </LangContext.Provider>
   );
