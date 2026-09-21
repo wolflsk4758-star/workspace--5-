@@ -137,22 +137,22 @@ const translations = {
 // ===== IMAGES =====
 const beforeAfterImages = [
   {
-    before: 'https://image.qwenlm.ai/generated-images/d2e9db2b-a0c6-402a-bf5b-a6a2c7db74b4/_result.png',
-    after: 'https://image.qwenlm.ai/generated-images/278e41d4-8fdf-4ec5-8991-fa7ce11023df/_result.png',
+    before: 'https://image.qwenlm.ai/generated-images/1e8ad0df-4e42-4078-bad5-0838ce0f6127/_result.png',
+    after: 'https://image.qwenlm.ai/generated-images/7dcde22f-9ca4-4542-bbbe-c8f3fb98aba3/_result.png',
   },
   {
-    before: 'https://image.qwenlm.ai/generated-images/992f6150-19ce-47e1-bcc5-5f8a816114de/_result.png',
-    after: 'https://image.qwenlm.ai/generated-images/17635771-9ba8-4036-b5f2-037ddbff50cb/_result.png',
+    before: 'https://image.qwenlm.ai/generated-images/1908606b-ca17-49f0-8382-e034e81135a0/_result.png',
+    after: 'https://image.qwenlm.ai/generated-images/9e975e25-e5c8-4a70-b759-24085f551224/_result.png',
   },
 ];
 
 const galleryImages = [
-  'https://image.qwenlm.ai/generated-images/8acee05e-f6c3-46bb-b1e0-6e0353d705bc/_result.png',
-  'https://image.qwenlm.ai/generated-images/67a3a057-4fea-4a07-b589-61d7bc17c1b0/_result.png',
-  'https://image.qwenlm.ai/generated-images/e4203de6-dc9b-4943-8b17-a811ad21c093/_result.png',
-  'https://image.qwenlm.ai/generated-images/8338d949-bf98-4bb9-8929-026b8ee5de28/_result.png',
-  'https://image.qwenlm.ai/generated-images/18338ebc-1f98-4a74-be49-305eabce69fc/_result.png',
-  'https://image.qwenlm.ai/generated-images/8a2e0e9b-dfff-4f3e-ab6a-6516ed757de1/_result.png',
+  'https://image.qwenlm.ai/generated-images/1594d750-1229-4c32-b259-3424ccca4076/_result.png',
+  'https://image.qwenlm.ai/generated-images/19e5aee1-792b-43c3-b924-7b248f408973/_result.png',
+  'https://image.qwenlm.ai/generated-images/82e5aff1-a614-4c8a-8be3-6def6dd59e4d/_result.png',
+  'https://image.qwenlm.ai/generated-images/b1d8c6ad-2ad3-43c5-87cd-2cd6ea48371b/_result.png',
+  'https://image.qwenlm.ai/generated-images/5396eed7-617b-4353-a930-8417a4c7ad27/_result.png',
+  'https://image.qwenlm.ai/generated-images/7f28f249-9487-4966-a0a8-2391531ad315/_result.png',
 ];
 
 // ===== NAVBAR =====
